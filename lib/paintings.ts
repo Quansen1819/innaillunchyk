@@ -48,11 +48,25 @@ export const statusLabels: Record<PaintingStatus, string> = {
 const blurs = blurData as Record<string, string>
 
 const paintings: Painting[] = (paintingsData as Omit<Painting, 'blurDataURL'>[]).map(
-  (painting) => ({
-    ...painting,
-    category: (painting.category?.toString().toUpperCase() as PaintingCategory) || 'ALL',
-    blurDataURL: blurs[painting.image.split('/').pop() ?? ''],
-  }),
+  (painting) => {
+    const textToSearch = `${painting.title || ''} ${(painting.tags || []).join(' ')} ${painting.description || ''}`.toLowerCase()
+
+    let computedCategory: PaintingCategory = 'LANDSCAPES'
+
+    if (textToSearch.includes('cloud') || textToSearch.includes('sky') || textToSearch.includes('sun') || textToSearch.includes('sunset')) {
+      computedCategory = 'SKY & CLOUDS'
+    } else if (textToSearch.includes('water') || textToSearch.includes('ocean') || textToSearch.includes('sea') || textToSearch.includes('lake') || textToSearch.includes('river') || textToSearch.includes('pond') || textToSearch.includes('wave') || textToSearch.includes('coastal')) {
+      computedCategory = 'WATER'
+    } else if (textToSearch.includes('flower') || textToSearch.includes('floral') || textToSearch.includes('rose') || textToSearch.includes('peony') || textToSearch.includes('bouquet') || textToSearch.includes('garden')) {
+      computedCategory = 'FLORALS'
+    }
+
+    return {
+      ...painting,
+      category: computedCategory,
+      blurDataURL: blurs[painting.image?.split('/').pop() ?? ''],
+    }
+  },
 )
 
 export async function getPaintings(): Promise<Painting[]> {
@@ -63,17 +77,17 @@ export async function getPaintingBySlug(slug: string): Promise<Painting | undefi
   return paintings.find((painting) => painting.slug === slug)
 }
 
-// Повертає першу картину з імпортованого списку Etsy для Hero-блоку на головній
 export async function getFeaturedPainting(): Promise<Painting | undefined> {
-  return paintings[0]
+  return paintings.find((p) => p.image) ?? paintings[0]
 }
 
 export async function getPaintingsBySeries(): Promise<{ series: string; paintings: Painting[] }[]> {
   const groups = new Map<string, Painting[]>()
   for (const painting of paintings) {
-    const list = groups.get(painting.series) ?? []
+    const seriesName = painting.series || 'Selected Works'
+    const list = groups.get(seriesName) ?? []
     list.push(painting)
-    groups.set(painting.series, list)
+    groups.set(seriesName, list)
   }
   return Array.from(groups, ([series, items]) => ({ series, paintings: items }))
 }
@@ -81,9 +95,9 @@ export async function getPaintingsBySeries(): Promise<{ series: string; painting
 export function formatPrice(painting: Pick<Painting, 'price' | 'currency'>) {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: painting.currency,
+    currency: painting.currency || 'USD',
     maximumFractionDigits: 0,
-  }).format(painting.price)
+  }).format(painting.price || 0)
 }
 
 export function formatDimensions(painting: Pick<Painting, 'widthIn' | 'heightIn'>) {
