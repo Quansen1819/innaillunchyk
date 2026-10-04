@@ -28,13 +28,12 @@ export function Hero({ painting }: { painting: Painting }) {
           </h1>
           <SprigDivider className="mt-7" />
           <p className="mt-7 text-xs font-medium tracking-[0.28em] text-gold uppercase sm:text-sm">
-            Painted with love, inspired by nature
+          INSPIRED BY LIGHT, SKY & NATURE
           </p>
           <span className="mx-auto mt-5 block h-px w-10 bg-gold/50" aria-hidden="true" />
           <p className="mt-3 font-script text-5xl text-olive-deep sm:text-6xl">Oil Paintings</p>
           <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Landscapes, florals and quiet still lifes by Ukrainian-born artist Inna Iliychuk, painted by hand in her
-            Chicago studio.
+          Original oil paintings by Ukrainian-born artist Inna Iliychuk, created by hand in her Chicago studio.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link href="/#available" className={primaryCta}>

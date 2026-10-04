@@ -6,7 +6,7 @@ import { AboutSection } from '@/components/about-section'
 import { ContactSection } from '@/components/contact-section'
 import { SectionHeading } from '@/components/ornament'
 import { FadeIn } from '@/components/fade-in'
-import { getFeaturedPainting, getPaintings, getPaintingsBySeries } from '@/lib/paintings'
+import { getPaintingBySlug, getPaintings, getPaintingsBySeries } from '@/lib/paintings'
 import { serializeJsonLd, siteJsonLd } from '@/lib/json-ld'
 
 export const metadata: Metadata = {
@@ -18,12 +18,16 @@ export default async function HomePage() {
   const [paintings, series, heroPainting] = await Promise.all([
     getPaintings(),
     getPaintingsBySeries(),
-    getFeaturedPainting(),
+    // Замініть 'peonies-in-a-vase' на slug потрібної картини з paintings.json:
+    getPaintingBySlug('sky-and-water-art-original-cloud-landscape-oil-painting'),
   ])
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(siteJsonLd(paintings)) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(siteJsonLd(paintings)) }}
+      />
 
       {heroPainting ? <Hero painting={heroPainting} /> : null}
 

@@ -18,6 +18,7 @@ export interface Painting {
   currency: string
   status: PaintingStatus
   category: PaintingCategory
+  categories: PaintingCategory[]
   series: string
   image: string
   images?: string[]
@@ -47,23 +48,46 @@ export const statusLabels: Record<PaintingStatus, string> = {
 
 const blurs = blurData as Record<string, string>
 
-const paintings: Painting[] = (paintingsData as Omit<Painting, 'blurDataURL'>[]).map(
+// Ручна або пряма нормалізація категорій на основі даних із файлу
+function getPaintingCategories(item: any): PaintingCategory[] {
+  const result = new Set<PaintingCategory>()
+  const rawCat = (item.category || '').toString().toUpperCase()
+  const title = (item.title || '').toLowerCase()
+  const tags = Array.isArray(item.tags) ? item.tags.join(' ').toLowerCase() : ''
+
+  // 1. Пряма перевірка категорій з JSON
+  if (rawCat.includes('SKY') || rawCat.includes('CLOUD')) result.add('SKY & CLOUDS')
+  if (rawCat.includes('WATER') || rawCat.includes('SEA') || rawCat.includes('OCEAN')) result.add('WATER')
+  if (rawCat.includes('FLORAL') || rawCat.includes('FLOWER')) result.add('FLORALS')
+  if (rawCat.includes('LANDSCAPE')) result.add('LANDSCAPES')
+
+  // 2. Якщо в JSON категорія застаріла або порожня — точна перевірка за ключовими тегами/назвою
+  if (title.includes('cloud') || title.includes('sky') || tags.includes('clouds') || tags.includes('sky')) {
+    result.add('SKY & CLOUDS')
+  }
+  if (title.includes('water') || title.includes('ocean') || title.includes('sea') || title.includes('lake') || title.includes('river') || tags.includes('ocean') || tags.includes('seascape')) {
+    result.add('WATER')
+  }
+  if (title.includes('flower') || title.includes('rose') || title.includes('peony') || title.includes('floral') || tags.includes('floral') || tags.includes('peonies')) {
+    result.add('FLORALS')
+  }
+
+  // 3. Якщо взагалі нічого не збіглося — відносимо до LANDSCAPES
+  if (result.size === 0) {
+    result.add('LANDSCAPES')
+  }
+
+  return Array.from(result)
+}
+
+const paintings: Painting[] = (paintingsData as Omit<Painting, 'blurDataURL' | 'categories'>[]).map(
   (painting) => {
-    const textToSearch = `${painting.title || ''} ${(painting.tags || []).join(' ')} ${painting.description || ''}`.toLowerCase()
-
-    let computedCategory: PaintingCategory = 'LANDSCAPES'
-
-    if (textToSearch.includes('cloud') || textToSearch.includes('sky') || textToSearch.includes('sun') || textToSearch.includes('sunset')) {
-      computedCategory = 'SKY & CLOUDS'
-    } else if (textToSearch.includes('water') || textToSearch.includes('ocean') || textToSearch.includes('sea') || textToSearch.includes('lake') || textToSearch.includes('river') || textToSearch.includes('pond') || textToSearch.includes('wave') || textToSearch.includes('coastal')) {
-      computedCategory = 'WATER'
-    } else if (textToSearch.includes('flower') || textToSearch.includes('floral') || textToSearch.includes('rose') || textToSearch.includes('peony') || textToSearch.includes('bouquet') || textToSearch.includes('garden')) {
-      computedCategory = 'FLORALS'
-    }
+    const categories = getPaintingCategories(painting)
 
     return {
       ...painting,
-      category: computedCategory,
+      categories,
+      category: categories[0],
       blurDataURL: blurs[painting.image?.split('/').pop() ?? ''],
     }
   },
