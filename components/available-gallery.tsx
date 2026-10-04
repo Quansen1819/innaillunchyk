@@ -9,9 +9,9 @@ import { CATEGORIES, categoryLabels, type Painting, type PaintingCategory } from
 export function AvailableGallery({ paintings }: { paintings: Painting[] }) {
   const [filter, setFilter] = useState<PaintingCategory>('ALL')
 
-  const visible = filter === 'ALL' 
-    ? paintings 
-    : paintings.filter((p) => p.category?.toUpperCase() === filter)
+  const visible = filter === 'ALL'
+    ? paintings
+    : paintings.filter((p) => p.categories?.includes(filter) || p.category === filter)
 
   return (
     <div>
