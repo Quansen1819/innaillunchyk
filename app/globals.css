@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-script: var(--font-allura), cursive;
+
+  --color-cream: var(--cream);
+  --color-ivory: var(--ivory);
+  --color-olive: var(--olive);
+  --color-olive-deep: var(--olive-deep);
+  --color-gold: var(--gold);
+  --color-beige: var(--beige);
+  --color-charcoal: var(--charcoal);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  color-scheme: light;
+
+  --cream: #faf7f0;
+  --ivory: #f3ede2;
+  --olive: #6b7048;
+  --olive-deep: #4e5233;
+  --gold: #8a6a35;
+  --beige: #e5dccb;
+  --charcoal: #2e2e2a;
+
+  --background: var(--cream);
+  --foreground: var(--charcoal);
+  --card: #fdfbf6;
+  --card-foreground: var(--charcoal);
+  --popover: #fdfbf6;
+  --popover-foreground: var(--charcoal);
+  --primary: var(--olive);
+  --primary-foreground: var(--cream);
+  --secondary: var(--ivory);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--ivory);
+  --muted-foreground: #66625a;
+  --accent: var(--ivory);
+  --accent-foreground: var(--olive-deep);
+  --destructive: #a1402f;
+  --border: var(--beige);
+  --input: #d9cfbb;
+  --ring: var(--olive);
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Subtle canvas/paper grain layered over the cream background */
+.paper-texture {
+  position: relative;
+  isolation: isolate;
+}
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.48 0 0 0 0 0.36 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Painterly feathered edge for hero artwork, like the banner reference */
+.feathered {
+  mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, #000 55%, transparent 100%);
+}
