@@ -5,6 +5,13 @@ const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.etsystatic.com',
+        pathname: '/**',
+      },
+    ],
   },
   async headers() {
     return [

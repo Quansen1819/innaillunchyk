@@ -2,7 +2,7 @@ import paintingsData from '@/data/paintings.json'
 import blurData from '@/data/blur-placeholders.json'
 
 export type PaintingStatus = 'available' | 'sold' | 'reserved'
-export type PaintingCategory = 'landscapes' | 'florals' | 'still-life'
+export const CATEGORIES = ['ALL', 'SKY & CLOUDS', 'WATER', 'LANDSCAPES', 'FLORALS'];
 
 export interface Painting {
   id: string
@@ -18,10 +18,13 @@ export interface Painting {
   category: PaintingCategory
   series: string
   image: string
+  images?: string[]
   imageWidth: number
   imageHeight: number
   imageAlt: string
   description: string
+  tags?: string[]
+  materials?: string
   etsyUrl: string
   blurDataURL?: string
 }
@@ -52,8 +55,10 @@ export async function getPaintings(): Promise<Painting[]> {
   return paintings
 }
 
-export async function getPaintingBySlug(slug: string): Promise<Painting | undefined> {
-  return paintings.find((painting) => painting.slug === slug)
+export async function getFeaturedPainting(): Promise<Painting | undefined> {
+  return (
+    paintings.find((painting) => painting.slug === 'coastal-seascape-with-dramatic-sky') ?? paintings[0]
+  )
 }
 
 export async function getPaintingsBySeries(): Promise<{ series: string; paintings: Painting[] }[]> {

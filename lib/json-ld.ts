@@ -15,7 +15,7 @@ export function artworkJsonLd(painting: Painting) {
     '@type': 'VisualArtwork',
     name: painting.title,
     url: `${siteConfig.url}/art/${painting.slug}`,
-    image: `${siteConfig.url}${painting.image}`,
+    image: painting.image.startsWith('http') ? painting.image : `${siteConfig.url}${painting.image}`,
     description: painting.description,
     artform: 'Painting',
     artMedium: 'Oil',
