@@ -2,7 +2,7 @@ import paintingsData from '@/data/paintings.json'
 import blurData from '@/data/blur-placeholders.json'
 
 export type PaintingStatus = 'available' | 'sold' | 'reserved'
-export type PaintingCategory = 'ALL' | 'SKY & CLOUDS' | 'WATER' | 'LANDSCAPES' | 'FLORALS' | 'landscapes' | 'florals' | 'still-life'
+export type PaintingCategory = 'ALL' | 'SKY & CLOUDS' | 'WATER' | 'LANDSCAPES' | 'FLORALS'
 
 export const CATEGORIES: PaintingCategory[] = ['ALL', 'SKY & CLOUDS', 'WATER', 'LANDSCAPES', 'FLORALS']
 
@@ -31,15 +31,12 @@ export interface Painting {
   blurDataURL?: string
 }
 
-export const categoryLabels: Record<string, string> = {
+export const categoryLabels: Record<PaintingCategory, string> = {
   ALL: 'All',
   'SKY & CLOUDS': 'Sky & Clouds',
   WATER: 'Water',
   LANDSCAPES: 'Landscapes',
   FLORALS: 'Florals',
-  landscapes: 'Landscapes',
-  florals: 'Florals',
-  'still-life': 'Still Life',
 }
 
 export const statusLabels: Record<PaintingStatus, string> = {
@@ -53,11 +50,11 @@ const blurs = blurData as Record<string, string>
 const paintings: Painting[] = (paintingsData as Omit<Painting, 'blurDataURL'>[]).map(
   (painting) => ({
     ...painting,
+    category: (painting.category?.toString().toUpperCase() as PaintingCategory) || 'ALL',
     blurDataURL: blurs[painting.image.split('/').pop() ?? ''],
   }),
 )
 
-// Single data access point
 export async function getPaintings(): Promise<Painting[]> {
   return paintings
 }
@@ -66,10 +63,9 @@ export async function getPaintingBySlug(slug: string): Promise<Painting | undefi
   return paintings.find((painting) => painting.slug === slug)
 }
 
+// Повертає першу картину з імпортованого списку Etsy для Hero-блоку на головній
 export async function getFeaturedPainting(): Promise<Painting | undefined> {
-  return (
-    paintings.find((painting) => painting.slug === 'coastal-seascape-with-dramatic-sky') ?? paintings[0]
-  )
+  return paintings[0]
 }
 
 export async function getPaintingsBySeries(): Promise<{ series: string; paintings: Painting[] }[]> {
