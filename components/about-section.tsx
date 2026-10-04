@@ -38,19 +38,18 @@ export function AboutSection() {
 
           <div className="mt-6 space-y-5 text-[0.95rem] leading-relaxed text-charcoal/85">
             <p>
-              I grew up in Ukraine, surrounded by birch groves, sunflower fields and my grandmother&apos;s garden. Those
-              colors stayed with me when I moved to Chicago, and today they find their way into almost every canvas I
-              paint.
+            Welcome to Inna Iliychuk Art. I`m Inna, an independent artist living and painting in the Chicago area.
             </p>
             <p>
-              I paint in oil because it is slow and forgiving. It lets me build light in thin, glowing layers, the way
-              morning light builds over a forest stream or across Lake Michigan. My subjects are simple: landscapes,
-              flowers and quiet still lifes, the small, beautiful things we often walk past.
+            I create original oil paintings inspired by light, water, open skies, flowers, and the quiet beauty of nature.
+            My work includes impressionist landscapes, seascapes, water scenes, floral paintings, and expressive interpretations of nature.
             </p>
             <p>
-              Every painting is made by hand, one at a time, in my home studio. I hope each one brings a little calm and
-              warmth into the home where it ends up.
+            Light and atmosphere are at the heart of my work. I`m especially drawn to reflections on water, luminous skies, clouds, flowers, and peaceful moments in nature. Through color and expressive brushwork, I aim to create paintings that bring a sense of warmth, calm, and space into a home.
             </p>
+            <p>
+            Each painting is an original, one-of-a-kind artwork created by hand. I enjoy allowing every piece to develop its own atmosphere while keeping light, color, and nature at the center of my work.</p>
+            <p>My original paintings are available throughout the United States, with free U.S. shipping.</p>
           </div>
 
           <blockquote className="mt-8 border-l-2 border-gold/50 pl-5">
