@@ -4,34 +4,30 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { PaintingCard } from '@/components/painting-card'
-import { categoryLabels, type Painting, type PaintingCategory } from '@/lib/paintings'
-
-type Filter = 'all' | PaintingCategory
-
-const filters: { value: Filter; label: string }[] = [
-  { value: 'all', label: 'All' },
-  ...(Object.entries(categoryLabels) as [PaintingCategory, string][]).map(([value, label]) => ({ value, label })),
-]
+import { CATEGORIES, categoryLabels, type Painting, type PaintingCategory } from '@/lib/paintings'
 
 export function AvailableGallery({ paintings }: { paintings: Painting[] }) {
-  const [filter, setFilter] = useState<Filter>('all')
-  const visible = filter === 'all' ? paintings : paintings.filter((p) => p.category === filter)
+  const [filter, setFilter] = useState<PaintingCategory>('ALL')
+
+  const visible = filter === 'ALL' 
+    ? paintings 
+    : paintings.filter((p) => p.category?.toUpperCase() === filter)
 
   return (
     <div>
       <ToggleGroup
         value={[filter]}
-        onValueChange={(value) => value[0] && setFilter(value[0] as Filter)}
+        onValueChange={(value) => value[0] && setFilter(value[0] as PaintingCategory)}
         aria-label="Filter paintings by subject"
         className="mx-auto flex w-full flex-wrap justify-center gap-2"
       >
-        {filters.map((f) => (
+        {CATEGORIES.map((cat) => (
           <ToggleGroupItem
-            key={f.value}
-            value={f.value}
+            key={cat}
+            value={cat}
             className="h-9 rounded-sm border border-beige bg-transparent px-5 text-[0.7rem] font-medium tracking-[0.2em] text-charcoal/80 uppercase hover:bg-ivory data-[pressed]:border-olive data-[pressed]:bg-olive data-[pressed]:text-primary-foreground"
           >
-            {f.label}
+            {categoryLabels[cat] || cat}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>

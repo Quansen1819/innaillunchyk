@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Hero } from '@/components/hero'
 import { AvailableGallery } from '@/components/available-gallery'
 import { PortfolioLightbox } from '@/components/portfolio-lightbox'
@@ -5,21 +6,26 @@ import { AboutSection } from '@/components/about-section'
 import { ContactSection } from '@/components/contact-section'
 import { SectionHeading } from '@/components/ornament'
 import { FadeIn } from '@/components/fade-in'
-import { getPaintingBySlug, getPaintings, getPaintingsBySeries } from '@/lib/paintings'
+import { getFeaturedPainting, getPaintings, getPaintingsBySeries } from '@/lib/paintings'
 import { serializeJsonLd, siteJsonLd } from '@/lib/json-ld'
+
+export const metadata: Metadata = {
+  title: 'Inna Iliychuk Art | Original Oil Paintings',
+  description: 'Original oil paintings by Ukrainian-born artist Inna Iliychuk, created by hand in her Chicago studio.',
+}
 
 export default async function HomePage() {
   const [paintings, series, heroPainting] = await Promise.all([
     getPaintings(),
     getPaintingsBySeries(),
-    getPaintingBySlug('summer-clouds-over-the-lake'),
+    getFeaturedPainting(),
   ])
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(siteJsonLd(paintings)) }} />
 
-      {heroPainting && <Hero painting={heroPainting} />}
+      {heroPainting ? <Hero painting={heroPainting} /> : null}
 
       <section id="available" aria-labelledby="available-title" className="py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
