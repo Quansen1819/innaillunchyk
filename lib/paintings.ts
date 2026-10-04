@@ -2,7 +2,9 @@ import paintingsData from '@/data/paintings.json'
 import blurData from '@/data/blur-placeholders.json'
 
 export type PaintingStatus = 'available' | 'sold' | 'reserved'
-export const CATEGORIES = ['ALL', 'SKY & CLOUDS', 'WATER', 'LANDSCAPES', 'FLORALS'];
+export type PaintingCategory = 'ALL' | 'SKY & CLOUDS' | 'WATER' | 'LANDSCAPES' | 'FLORALS' | 'landscapes' | 'florals' | 'still-life'
+
+export const CATEGORIES: PaintingCategory[] = ['ALL', 'SKY & CLOUDS', 'WATER', 'LANDSCAPES', 'FLORALS']
 
 export interface Painting {
   id: string
@@ -29,7 +31,12 @@ export interface Painting {
   blurDataURL?: string
 }
 
-export const categoryLabels: Record<PaintingCategory, string> = {
+export const categoryLabels: Record<string, string> = {
+  ALL: 'All',
+  'SKY & CLOUDS': 'Sky & Clouds',
+  WATER: 'Water',
+  LANDSCAPES: 'Landscapes',
+  FLORALS: 'Florals',
   landscapes: 'Landscapes',
   florals: 'Florals',
   'still-life': 'Still Life',
@@ -50,9 +57,13 @@ const paintings: Painting[] = (paintingsData as Omit<Painting, 'blurDataURL'>[])
   }),
 )
 
-// Single data access point: swap these implementations for a CMS (e.g. Sanity) later.
+// Single data access point
 export async function getPaintings(): Promise<Painting[]> {
   return paintings
+}
+
+export async function getPaintingBySlug(slug: string): Promise<Painting | undefined> {
+  return paintings.find((painting) => painting.slug === slug)
 }
 
 export async function getFeaturedPainting(): Promise<Painting | undefined> {
