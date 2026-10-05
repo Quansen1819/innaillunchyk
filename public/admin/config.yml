@@ -5,6 +5,7 @@ backend:
   name: github
   repo: Quansen1819/innaillunchyk
   branch: main
+  base_url: https://sveltia-cms-auth.gbadaev2.workers.dev
 
 media_folder: public/images/paintings
 public_folder: /images/paintings
