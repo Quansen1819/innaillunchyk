@@ -18,7 +18,7 @@ export function Hero({ painting }: { painting: Painting }) {
     <section ref={ref} aria-labelledby="hero-title" className="relative overflow-hidden">
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 pt-10 pb-16 sm:px-8 md:grid-cols-[1.05fr_1fr] md:gap-6 md:pt-16 md:pb-24 lg:gap-12">
         <motion.div
-          className="order-2 text-center md:order-1"
+          className="order-1 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -47,7 +47,7 @@ export function Hero({ painting }: { painting: Painting }) {
         </motion.div>
 
         <motion.div
-          className="order-1 md:order-2"
+          className="order-2 md:order-2"
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
