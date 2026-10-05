@@ -69,7 +69,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
+      lang="en" data-scroll-behavior="smooth"
       className={`${cormorant.variable} ${montserrat.variable} ${allura.variable} bg-background`}
     >
       <body className="paper-texture min-h-dvh">

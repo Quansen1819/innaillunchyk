@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
-import { formatDimensions, type Painting } from '@/lib/paintings'
+import { FALLBACK_IMAGE_HEIGHT, FALLBACK_IMAGE_WIDTH, formatDimensions, resolveImage, type Painting } from '@/lib/paintings'
 
 interface PortfolioProps {
   groups: { series: string; paintings: Painting[] }[]
@@ -41,7 +41,7 @@ export function PortfolioLightbox({ groups }: PortfolioProps) {
                     className="group relative block aspect-square w-full overflow-hidden rounded-sm bg-ivory ring-1 ring-beige/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                   >
                     <Image
-                      src={painting.image}
+                      src={resolveImage(painting.image)}
                       alt=""
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
@@ -76,10 +76,10 @@ export function PortfolioLightbox({ groups }: PortfolioProps) {
               <div className="relative flex items-center justify-center bg-ivory p-4 sm:p-8">
                 <Image
                   key={active.id}
-                  src={active.image}
+                  src={resolveImage(active.image)}
                   alt={active.imageAlt}
-                  width={active.imageWidth}
-                  height={active.imageHeight}
+                  width={active.imageWidth ?? FALLBACK_IMAGE_WIDTH}
+                  height={active.imageHeight ?? FALLBACK_IMAGE_HEIGHT}
                   sizes="(min-width: 768px) 800px, 96vw"
                   placeholder={active.blurDataURL ? 'blur' : 'empty'}
                   blurDataURL={active.blurDataURL}

@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import { Heart } from 'lucide-react'
 import { SprigDivider } from '@/components/ornament'
 import { primaryCta, outlineCta } from '@/lib/styles'
-import type { Painting } from '@/lib/paintings'
+import { resolveImage, type Painting } from '@/lib/paintings'
 
 export function Hero({ painting }: { painting: Painting }) {
   const ref = useRef<HTMLElement>(null)
@@ -54,14 +54,14 @@ export function Hero({ painting }: { painting: Painting }) {
         >
           <motion.div style={{ y: imageY }} className="feathered relative mx-auto aspect-[4/5] w-full max-w-md md:max-w-none">
             <Image
-              src={painting.image}
+              src={resolveImage(painting.image)}
               alt={painting.imageAlt}
               fill
               priority
               sizes="(min-width: 768px) 50vw, 100vw"
               placeholder={painting.blurDataURL ? 'blur' : 'empty'}
               blurDataURL={painting.blurDataURL}
-              className="object-cover"
+              className="object-cover"loading="eager"
             />
           </motion.div>
           <p className="mt-2 text-center text-xs tracking-wide text-muted-foreground italic">

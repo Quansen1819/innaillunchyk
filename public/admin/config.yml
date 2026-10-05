@@ -1,0 +1,183 @@
+local_backend: true
+locale: en
+
+backend:
+  name: github
+  repo: Quansen1819/innaillunchyk
+  branch: main
+
+media_folder: public/images/paintings
+public_folder: /images/paintings
+
+site_url: http://localhost:3000
+display_url: http://localhost:3000
+logo_url: /icon.svg
+
+collections:
+  - name: paintings
+    label: Paintings
+    format: json-array
+    extension: json
+    label_singular: Painting
+    description: Add a new painting or click an existing one to edit it. Then press Save at the top of the screen.
+    editor:
+      preview: false
+    files:
+      - name: paintings
+        label: All paintings
+        file: data/paintings.json
+        format: json-array
+        extension: json
+        fields:
+          - name: paintings
+            label: Paintings
+            label_singular: Painting
+            widget: list
+            summary: "{{title}}"
+            collapsed: true
+            add_to_top: true
+            fields:
+              - name: title
+                label: Painting title
+                widget: string
+                hint: The name shown on the website.
+                required: true
+
+              - name: image
+                label: Main photo
+                widget: image
+                hint: The photo visitors see first. Upload a file, or leave an existing web photo as it is.
+                required: true
+                choose_url: true
+
+              - name: images
+                label: Additional photos
+                widget: list
+                required: false
+                hint: Optional extra photos (details, side view, in a room). You can skip this.
+                field:
+                  label: Photo
+                  name: src
+                  widget: image
+                  choose_url: true
+
+              - name: widthIn
+                label: Width, inches
+                widget: number
+                hint: The width of the canvas, for example 20.
+                value_type: int
+                min: 1
+                required: true
+
+              - name: heightIn
+                label: Height, inches
+                widget: number
+                hint: The height of the canvas, for example 16.
+                value_type: int
+                min: 1
+                required: true
+
+              - name: price
+                label: Price, USD
+                widget: number
+                hint: Numbers only, e.g. 228
+                value_type: int
+                min: 0
+                required: true
+
+              - name: status
+                label: Status
+                widget: select
+                hint: Available means it can be purchased. Sold means it has already been sold.
+                default: available
+                options:
+                  - { label: Available, value: available }
+                  - { label: Sold, value: sold }
+
+              - name: category
+                label: Category
+                widget: select
+                hint: Choose the closest match. This is used to group the work on the site.
+                required: true
+                options:
+                  - { label: Landscapes, value: landscapes }
+                  - { label: Florals, value: florals }
+                  - { label: Sky&clouds, value: sky&clouds }
+                  - { label: Water, value: water }
+
+              - name: series
+                label: Series
+                widget: select
+                hint: Which group this painting belongs to in the portfolio.
+                required: true
+                options:
+                  - { label: Clouds & Light, value: Clouds & Light }
+                  - { label: Coastal Waters, value: Coastal Waters }
+                  - { label: Garden Notes, value: Garden Notes }
+                  - { label: Garden Ponds, value: Garden Ponds }
+                  - { label: Rivers & Fields, value: Rivers & Fields }
+                  - { label: The Quiet Table, value: The Quiet Table }
+                  - { label: Winter Light, value: Winter Light }
+
+              - name: description
+                label: Description
+                widget: text
+                hint: A short paragraph about the painting for the website.
+                required: true
+
+              - name: etsyUrl
+                label: Etsy link
+                widget: string
+                required: false
+                hint: Optional. Paste the Etsy listing URL if this painting is for sale there.
+
+              - name: tags
+                label: Tags
+                widget: list
+                required: false
+                hint: Optional. Type a word or phrase and press Enter. Used behind the scenes, not shown as a list on the site.
+
+              - name: id
+                label: id
+                widget: hidden
+                required: false
+
+              - name: slug
+                label: slug
+                widget: hidden
+                required: false
+
+              - name: year
+                label: year
+                widget: hidden
+                default: 2026
+
+              - name: medium
+                label: medium
+                widget: hidden
+                default: Oil on Canvas
+
+              - name: currency
+                label: currency
+                widget: hidden
+                default: USD
+
+              - name: materials
+                label: materials
+                widget: hidden
+                default: Stretched canvas
+
+              - name: imageAlt
+                label: imageAlt
+                widget: hidden
+                required: false
+
+              - name: imageWidth
+                label: imageWidth
+                widget: hidden
+                required: false
+
+              - name: imageHeight
+                label: imageHeight
+                widget: hidden
+                required: false

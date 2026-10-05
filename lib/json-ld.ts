@@ -1,5 +1,5 @@
 import { siteConfig } from '@/lib/site'
-import type { Painting } from '@/lib/paintings'
+import { resolveImage, type Painting } from '@/lib/paintings'
 
 const artist = {
   '@type': 'Person',
@@ -11,11 +11,12 @@ const artist = {
 }
 
 export function artworkJsonLd(painting: Painting) {
+  const imageSrc = resolveImage(painting.image)
   return {
     '@type': 'VisualArtwork',
     name: painting.title,
     url: `${siteConfig.url}/art/${painting.slug}`,
-    image: painting.image.startsWith('http') ? painting.image : `${siteConfig.url}${painting.image}`,
+    image: imageSrc.startsWith('http') ? imageSrc : `${siteConfig.url}${imageSrc}`,
     description: painting.description,
     artform: 'Painting',
     artMedium: 'Oil',

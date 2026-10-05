@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { ZoomIn, ZoomOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { Painting } from '@/lib/paintings'
+import { FALLBACK_IMAGE_HEIGHT, FALLBACK_IMAGE_WIDTH, resolveImage, type Painting } from '@/lib/paintings'
 
 export function ZoomableImage({ painting }: { painting: Painting }) {
   const [zoomed, setZoomed] = useState(false)
@@ -32,10 +32,10 @@ export function ZoomableImage({ painting }: { painting: Painting }) {
         )}
       >
         <Image
-          src={painting.image}
+          src={resolveImage(painting.image)}
           alt={painting.imageAlt}
-          width={painting.imageWidth}
-          height={painting.imageHeight}
+          width={painting.imageWidth ?? FALLBACK_IMAGE_WIDTH}
+          height={painting.imageHeight ?? FALLBACK_IMAGE_HEIGHT}
           priority
           sizes="(min-width: 1024px) 60vw, 100vw"
           placeholder={painting.blurDataURL ? 'blur' : 'empty'}

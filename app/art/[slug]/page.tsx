@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { ZoomableImage } from '@/components/zoomable-image'
 import { PaintingCard, StatusBadge } from '@/components/painting-card'
 import { SprigDivider } from '@/components/ornament'
-import { formatDimensions, formatPrice, getPaintingBySlug, getPaintings, categoryLabels } from '@/lib/paintings'
+import { FALLBACK_IMAGE_HEIGHT, FALLBACK_IMAGE_WIDTH, formatDimensions, formatPrice, getPaintingBySlug, getPaintings, categoryLabels, resolveImage } from '@/lib/paintings'
 import { artworkJsonLd, serializeJsonLd } from '@/lib/json-ld'
 import { primaryCta, outlineCta } from '@/lib/styles'
 import { cn } from '@/lib/utils'
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps<'/art/[slug]'>): Pr
     openGraph: {
       title,
       description: painting.description,
-      images: [{ url: painting.image, width: painting.imageWidth, height: painting.imageHeight, alt: painting.imageAlt }],
+      images: [{ url: resolveImage(painting.image), width: painting.imageWidth ?? FALLBACK_IMAGE_WIDTH, height: painting.imageHeight ?? FALLBACK_IMAGE_HEIGHT, alt: painting.imageAlt }],
     },
   }
 }
@@ -86,7 +86,7 @@ export default async function PaintingPage({ params }: PageProps<'/art/[slug]'>)
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              {painting.status === 'available' && (
+              {painting.status === 'available' && painting.etsyUrl && (
                 <a href={painting.etsyUrl} target="_blank" rel="noopener noreferrer" className={cn(primaryCta, 'flex-1')}>
                   Buy on Etsy
                   <span className="sr-only"> (opens in a new tab)</span>

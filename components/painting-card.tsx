@@ -3,7 +3,15 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { primaryCta, outlineCta } from '@/lib/styles'
-import { formatDimensions, formatPrice, statusLabels, type Painting } from '@/lib/paintings'
+import {
+  FALLBACK_IMAGE_HEIGHT,
+  FALLBACK_IMAGE_WIDTH,
+  formatDimensions,
+  formatPrice,
+  resolveImage,
+  statusLabels,
+  type Painting,
+} from '@/lib/paintings'
 
 export function StatusBadge({ status, className }: { status: Painting['status']; className?: string }) {
   return (
@@ -31,10 +39,10 @@ export function PaintingCard({ painting, priority = false }: { painting: Paintin
         className="relative block overflow-hidden rounded-sm bg-ivory shadow-[0_1px_2px_rgba(46,46,42,0.06),0_12px_32px_-16px_rgba(46,46,42,0.25)] ring-1 ring-beige/60"
       >
         <Image
-          src={painting.image}
+          src={resolveImage(painting.image)}
           alt={painting.imageAlt}
-          width={painting.imageWidth}
-          height={painting.imageHeight}
+          width={painting.imageWidth ?? FALLBACK_IMAGE_WIDTH}
+          height={painting.imageHeight ?? FALLBACK_IMAGE_HEIGHT}
           priority={priority}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           placeholder={painting.blurDataURL ? 'blur' : 'empty'}
@@ -76,7 +84,7 @@ export function PaintingCard({ painting, priority = false }: { painting: Paintin
           <Link href={`/?painting=${painting.slug}#contact`} scroll={false} className={cn(outlineCta, 'h-10 flex-1')}>
             Inquire
           </Link>
-          {painting.status === 'available' && (
+          {painting.status === 'available' && painting.etsyUrl && (
             <a
               href={painting.etsyUrl}
               target="_blank"

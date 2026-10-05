@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Edit paintings — Inna Iliychuk</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+    <script>
+      // paintings.json is a JSON array. Decap expects an object, so wrap/unwrap on load/save.
+      CMS.registerCustomFormat('json-array', 'json', {
+        fromFile: function (content) {
+          var data = JSON.parse(content)
+          return Array.isArray(data) ? { paintings: data } : data
+        },
+        toFile: function (data) {
+          var list = data && Array.isArray(data.paintings) ? data.paintings : []
+          return JSON.stringify(list, null, 2) + '\n'
+        },
+      })
+    </script>
+  </body>
+</html>
