@@ -10,8 +10,8 @@ backend:
 media_folder: public/images/paintings
 public_folder: /images/paintings
 
-site_url: http://localhost:3000
-display_url: http://localhost:3000
+site_url: https://inna-iliychuk.vercel.app
+display_url: https://inna-iliychuk.vercel.app
 logo_url: /icon.svg
 
 collections:
