@@ -1,5 +1,21 @@
 [
   {
+    "price": 220,
+    "widthIn": 20,
+    "materials": "Stretched canvas",
+    "heightIn": 16,
+    "currency": "USD",
+    "status": "available",
+    "medium": "Oil on Canvas",
+    "series": "Coastal Waters",
+    "title": "Water drop",
+    "etsyUrl": "https://www.etsy.com/listing/4558279199/original-oil-painting-sailboat-seascape",
+    "image": "/images/paintings/cms-test.png",
+    "description": "Water, waterdrop",
+    "year": 2026,
+    "category": "water"
+  },
+  {
     "imageHeight": 2331,
     "price": 228,
     "imageWidth": 1790,
