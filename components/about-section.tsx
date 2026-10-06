@@ -14,8 +14,8 @@ export function AboutSection() {
             <div className="absolute -inset-3 -z-10 rounded-sm border border-gold/30 sm:-inset-4" aria-hidden="true" />
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
               <Image
-                src="/images/artist-studio.png"
-                alt="Inna Iliychuk's sunlit Chicago studio with an easel, oil paints and fresh flowers"
+                src="/images/family-image.jpg"
+                alt="Inna Iliychuk in Chicago with her family"
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
                 placeholder={blur ? 'blur' : 'empty'}
