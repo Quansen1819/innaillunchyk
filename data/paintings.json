@@ -1,23 +1,5 @@
 [
   {
-    "price": 222,
-    "widthIn": 20,
-    "materials": "Stretched canvas",
-    "heightIn": 16,
-    "currency": "USD",
-    "status": "available",
-    "medium": "Oil on Canvas",
-    "series": "Garden Ponds",
-    "title": "Glgegreg",
-    "images": [
-      "/images/paintings/photo_2026-10-06_18-57-18.jpg"
-    ],
-    "image": "/images/paintings/photo_2026-10-06_18-56-36.jpg",
-    "description": "fefefef",
-    "year": 2026,
-    "category": "florals"
-  },
-  {
     "imageHeight": 2331,
     "price": 228,
     "imageWidth": 1790,
