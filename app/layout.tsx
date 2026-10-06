@@ -51,13 +51,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [{ url: '/paintings/spring-stream.png', width: 1376, height: 768, alt: 'Spring Awakening, oil on canvas by Inna Iliychuk' }],
+    images: [{ url: '/og-image.jpg', width: 1264, height: 1265, alt: 'Inna Iliychuk, original oil paintings' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ['/paintings/spring-stream.png'],
+    images: ['/og-image.jpg'],
   },
 }
 
