@@ -1,22 +1,21 @@
 [
   {
-    "price": 325,
-    "widthIn": 22,
+    "price": 222,
+    "widthIn": 20,
     "materials": "Stretched canvas",
-    "heightIn": 28,
+    "heightIn": 16,
     "currency": "USD",
     "status": "available",
     "medium": "Oil on Canvas",
-    "series": "Clouds & Light",
-    "title": "Mountain Landscape Oil Painting, 22x28 Original Art, Clouds and Light",
-    "tags": [
-      "mountain landscape"
+    "series": "Garden Ponds",
+    "title": "Glgegreg",
+    "images": [
+      "/images/paintings/photo_2026-10-06_18-57-18.jpg"
     ],
-    "etsyUrl": "https://innailiychukart.etsy.com/listing/4589736118",
-    "image": "/images/paintings/img_5578.jpeg",
-    "description": "Original oil painting of a majestic mountain beneath a luminous, dramatic sky. Soft light moves through the clouds and across the green valley, creating a sense of freedom, space, and quiet beauty. Painted in Chicago and signed by the artist.",
+    "image": "/images/paintings/photo_2026-10-06_18-56-36.jpg",
+    "description": "fefefef",
     "year": 2026,
-    "category": "landscapes"
+    "category": "florals"
   },
   {
     "imageHeight": 2331,
