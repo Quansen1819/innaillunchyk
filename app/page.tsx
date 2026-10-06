@@ -11,7 +11,7 @@ import { serializeJsonLd, siteJsonLd } from '@/lib/json-ld'
 
 export const metadata: Metadata = {
   title: 'Inna Iliychuk Art | Original Oil Paintings',
-  description: 'Original oil paintings by Ukrainian-born artist Inna Iliychuk, created by hand in her Chicago studio..',
+  description: 'Original oil paintings by Ukrainian-born artist Inna Iliychuk, created by hand in her Chicago studio.',
 }
 
 export default async function HomePage() {
